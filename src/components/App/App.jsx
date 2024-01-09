@@ -1,17 +1,19 @@
-import './App.css'
+import s from './App.module.scss'
+
+import Filters from '../Filters'
+import Logo from '../Logo'
+import ShowMoreBtn from '../ShowMoreBtn'
+import Tabs from '../Tabs'
+import TicketsList from '../TicketsList'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src="" className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
+    <div className={s.App}>
+      <Logo />
+      <Filters />
+      <Tabs />
+      <TicketsList />
+      <ShowMoreBtn />
     </div>
   )
 }
