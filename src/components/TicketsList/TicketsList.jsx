@@ -4,9 +4,9 @@ import Ticket from '../Ticket'
 
 console.log('s', s)
 
-function TicketsList() {
+function TicketsList({ className }) {
   return (
-    <div>
+    <div className={className}>
       TicketsList
       <Ticket />
     </div>

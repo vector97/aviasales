@@ -1,0 +1,50 @@
+.checkbox {
+  &__wrapper {
+    display: flex;
+    align-items: center;
+
+    padding: 10px 20px;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f1fcff;
+    }
+  }
+
+  &__control {
+    appearance: none;
+
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+
+    border-radius: 2px;
+    border: 1px solid #9abbce;
+
+    outline: none;
+    cursor: pointer;
+
+    &:checked {
+      position: relative;
+
+      border: 1px solid #2196f3;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 3px;
+
+        width: 12px;
+        height: 8px;
+
+        background: url('../../assets/check.svg') no-repeat center;
+      }
+    }
+
+    &:focus {
+      box-shadow: 0 0 2px #2196f3;
+    }
+  }
+}

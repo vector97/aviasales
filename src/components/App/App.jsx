@@ -10,10 +10,12 @@ function App() {
   return (
     <div className={s.App}>
       <Logo />
-      <Filters />
-      <Tabs />
-      <TicketsList />
-      <ShowMoreBtn />
+      <div className={s.wrapper}>
+        <Filters className={s.Filters} />
+        <Tabs className={s.Tabs} />
+        <TicketsList className={s.TicketsList} />
+        <ShowMoreBtn className={s.ShowMoreBtn} />
+      </div>
     </div>
   )
 }

@@ -1,0 +1,19 @@
+.filters {
+  padding: 10px 0;
+
+  background-color: #ffffff;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+
+  &__title {
+    margin: 0;
+    padding: 10px 20px;
+
+    color: #4a4a4a;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+}

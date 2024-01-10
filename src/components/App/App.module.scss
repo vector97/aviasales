@@ -1,4 +1,40 @@
 .App {
   max-width: 754px;
   margin: 0 auto;
+  padding: 0 10px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-areas:
+    'filters tabs'
+    'filters list'
+    'filters btn';
+  grid-template-columns: 232px 1fr;
+  gap: 20px;
+
+  @media screen and (max-width: 768px) {
+    grid-template-areas:
+      'filters'
+      'tabs'
+      'list'
+      'btn';
+    grid-template-columns: 1fr;
+  }
+}
+
+.Filters {
+  grid-area: filters;
+}
+
+.Tabs {
+  grid-area: tabs;
+}
+
+.TicketsList {
+  grid-area: list;
+}
+
+.ShowMoreBtn {
+  grid-area: btn;
 }
