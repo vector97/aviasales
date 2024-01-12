@@ -1,9 +1,13 @@
 import s from './ShowMoreBtn.module.scss'
 
-console.log('s', s)
-
 function ShowMoreBtn({ className }) {
-  return <div className={className}>ShowMoreBtn</div>
+  return (
+    <div className={className}>
+      <button className={s['show-more']} type="button">
+        Показать еще 5 билетов!
+      </button>
+    </div>
+  )
 }
 
 export default ShowMoreBtn
