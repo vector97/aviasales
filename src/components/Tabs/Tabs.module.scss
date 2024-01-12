@@ -1,0 +1,56 @@
+.tabs {
+  background-color: #dfe5ec;
+  padding: 1px;
+
+  border-radius: 5px;
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style-type: none;
+  }
+
+  &__item {
+    overflow: hidden;
+
+    &:first-child {
+      border-radius: 4px 0 0 4px;
+      overflow: hidden;
+    }
+
+    &:last-child {
+      border-radius: 0 4px 4px 0;
+    }
+  }
+
+  &__control {
+    position: absolute;
+    appearance: none;
+
+    &:checked + .tabs__label {
+      color: #ffffff;
+      background-color: #2196f3;
+    }
+  }
+
+  &__label {
+    display: block;
+    padding: 15px 20px;
+
+    color: #4a4a4a;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+
+    background-color: #ffffff;
+    cursor: pointer;
+  }
+}
