@@ -8,19 +8,19 @@ function Tabs({ className }) {
       <ul className={s.tabs__list}>
         <li className={s.tabs__item}>
           <label>
-            <input className={s.tabs__control} type="radio" name="sort" />
+            <input className={s.tabs__control} type="radio" name="sort" value="cheap" />
             <span className={s.tabs__label}>Самый дешевый</span>
           </label>
         </li>
         <li className={s.tabs__item}>
           <label>
-            <input className={s.tabs__control} type="radio" name="sort" />
+            <input className={s.tabs__control} type="radio" name="sort" value="fast" />
             <span className={s.tabs__label}>Самый быстрый</span>
           </label>
         </li>
         <li className={s.tabs__item}>
           <label>
-            <input className={s.tabs__control} type="radio" name="sort" />
+            <input className={s.tabs__control} type="radio" name="sort" value="optimal" />
             <span className={s.tabs__label}>Оптимальный</span>
           </label>
         </li>

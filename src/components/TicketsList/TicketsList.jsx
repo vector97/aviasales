@@ -7,7 +7,10 @@ console.log('s', s)
 function TicketsList({ className }) {
   return (
     <div className={className}>
-      TicketsList
+      <Ticket />
+      <Ticket />
+      <Ticket />
+      <Ticket />
       <Ticket />
     </div>
   )
