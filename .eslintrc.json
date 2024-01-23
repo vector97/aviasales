@@ -20,7 +20,7 @@
     "react/react-in-jsx-scope": "off",
     "react/prop-types": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "indent": ["error", 2, { "offsetTernaryExpressions": true }],
+    "indent": ["error", 2, { "offsetTernaryExpressions": true, "SwitchCase": 1 }],
     "prettier/prettier": "error",
     "linebreak-style": [0, "unix"],
     "quotes": ["error", "single"],

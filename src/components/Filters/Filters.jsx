@@ -1,38 +1,25 @@
 import s from './Filters.module.scss'
 
+import { setVisibilityFilters } from '../../store/actionCreators'
 import Checkbox from '../Checkbox'
 
 import cn from 'classnames'
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 function Filters({ className }) {
-  const [options, setOptions] = useState([
-    { id: 0, label: 'Все', checked: false },
-    { id: 1, label: 'Без пересадок', checked: true },
-    { id: 2, label: '1 пересадка', checked: true },
-    { id: 3, label: '2 пересадки', checked: true },
-    { id: 4, label: '3 пересадки', checked: false },
-  ])
+  const dispatch = useDispatch()
+  const filters = useSelector((state) => state.filters)
 
-  const onCheckedHandler = (id) => {
-    setOptions((prevOptions) =>
-      prevOptions.map((option) =>
-        option.id === id
-          ? {
-              ...option,
-              checked: !option.checked,
-            }
-          : option
-      )
-    )
+  const onCheckedHandler = (filter) => {
+    dispatch(setVisibilityFilters(filter))
   }
 
   return (
     <div className={cn(className, s.filters)}>
       <p className={s.filters__title}>Количество пересадок</p>
 
-      {options.map(({ id, label, checked }) => (
-        <Checkbox key={id} id={id} label={label} setChecked={onCheckedHandler} checked={checked} />
+      {filters.map(({ filter, label, checked }) => (
+        <Checkbox key={filter} filter={filter} label={label} checked={checked} setChecked={onCheckedHandler} />
       ))}
     </div>
   )
