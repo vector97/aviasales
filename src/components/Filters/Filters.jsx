@@ -1,6 +1,6 @@
 import s from './Filters.module.scss'
 
-import { setVisibilityFilters } from '../../store/actionCreators'
+import { selectFilters, toggleFilter } from '../../store/filterSlice'
 import Checkbox from '../Checkbox'
 
 import cn from 'classnames'
@@ -8,10 +8,10 @@ import { useDispatch, useSelector } from 'react-redux'
 
 function Filters({ className }) {
   const dispatch = useDispatch()
-  const filters = useSelector((state) => state.filters)
+  const filters = useSelector(selectFilters)
 
   const onCheckedHandler = (filter) => {
-    dispatch(setVisibilityFilters(filter))
+    dispatch(toggleFilter({ filter }))
   }
 
   return (

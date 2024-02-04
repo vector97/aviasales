@@ -1,2 +1,0 @@
-export const SET_SORTING = 'SET_SORTING'
-export const TOGGLE_FILTER = 'TOGGLE_FILTER'

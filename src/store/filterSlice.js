@@ -1,37 +1,49 @@
-import { TOGGLE_FILTER } from './actionTypes'
+import { createSlice } from '@reduxjs/toolkit'
 
-const defaultState = [
+const initialState = [
   {
     filter: 'SHOW_ALL',
     label: 'Все',
     checked: true,
+    show: 'all',
   },
   {
     filter: 'WITHOUT_TRANSFERS',
     label: 'Без пересадок',
     checked: true,
+    show: 0,
   },
   {
     filter: 'ONE_TRANSFER',
     label: '1 пересадка',
     checked: true,
+    show: 1,
   },
   {
     filter: 'TWO_TRANSFERS',
     label: '2 пересадки',
     checked: true,
+    show: 2,
   },
   {
     filter: 'THREE_TRANSFERS',
     label: '3 пересадки',
     checked: true,
+    show: 3,
   },
 ]
 
-// eslint-disable-next-line default-param-last
-const filterReducer = (state = defaultState, action) => {
-  switch (action.type) {
-    case TOGGLE_FILTER:
+const filterSlice = createSlice({
+  name: 'filter',
+
+  initialState,
+
+  selectors: {
+    selectFilters: (state) => state,
+  },
+
+  reducers: (create) => ({
+    toggleFilter: create.reducer((state, action) => {
       if (action.payload.filter === 'SHOW_ALL') {
         if (!state[0].checked) {
           return state.map((filter) => ({ ...filter, checked: true }))
@@ -74,10 +86,14 @@ const filterReducer = (state = defaultState, action) => {
           return newState
         }
       }
-      return state
-    default:
-      return state
-  }
-}
 
-export default filterReducer
+      return state
+    }),
+  }),
+})
+
+export const { toggleFilter } = filterSlice.actions
+
+export const { selectFilters } = filterSlice.selectors
+
+export default filterSlice

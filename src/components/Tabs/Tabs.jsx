@@ -1,17 +1,13 @@
 import s from './Tabs.module.scss'
 
-import { setSorting } from '../../store/actionCreators'
+import { selectSorting, setSorting } from '../../store/sortingSlice'
 
 import cn from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 
 function Tabs({ className }) {
   const dispatch = useDispatch()
-  const sorting = useSelector((state) => state.sorting)
-
-  const onTabChangeHandler = (e) => {
-    dispatch(setSorting(e.target.value))
-  }
+  const sorting = useSelector(selectSorting)
 
   return (
     <div className={cn(className, s.tabs)}>
@@ -21,9 +17,9 @@ function Tabs({ className }) {
             <input
               className={s.tabs__control}
               type="radio"
-              name="sort"
+              name="sorting"
               value="cheapest"
-              onChange={onTabChangeHandler}
+              onChange={(e) => dispatch(setSorting({ sorting: e.target.value }))}
               checked={sorting === 'cheapest'}
             />
             <span className={s.tabs__label}>Самый дешевый</span>
@@ -34,9 +30,9 @@ function Tabs({ className }) {
             <input
               className={s.tabs__control}
               type="radio"
-              name="sort"
+              name="sorting"
               value="fastest"
-              onChange={onTabChangeHandler}
+              onChange={(e) => dispatch(setSorting({ sorting: e.target.value }))}
               checked={sorting === 'fastest'}
             />
             <span className={s.tabs__label}>Самый быстрый</span>
@@ -47,9 +43,9 @@ function Tabs({ className }) {
             <input
               className={s.tabs__control}
               type="radio"
-              name="sort"
+              name="sorting"
               value="optimal"
-              onChange={onTabChangeHandler}
+              onChange={(e) => dispatch(setSorting({ sorting: e.target.value }))}
               checked={sorting === 'optimal'}
             />
             <span className={s.tabs__label}>Оптимальный</span>
