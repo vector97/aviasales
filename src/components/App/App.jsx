@@ -15,10 +15,7 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (!searchId) {
-      dispatch(fetchSearchID())
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(fetchSearchID())
   }, [dispatch])
 
   useEffect(() => {

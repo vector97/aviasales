@@ -13,7 +13,6 @@ const sortingSlice = createSlice({
 
   reducers: (create) => ({
     setSorting: create.reducer((state, action) => {
-      // eslint-disable-next-line no-param-reassign
       state.sorting = action.payload.sorting
     }),
   }),

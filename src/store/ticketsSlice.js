@@ -1,5 +1,6 @@
-/* eslint-disable no-param-reassign */
 import { asyncThunkCreator, buildCreateSlice } from '@reduxjs/toolkit'
+
+const baseURL = 'https://aviasales-test-api.kata.academy'
 
 const createSliceWithThunks = buildCreateSlice({
   creators: { asyncThunk: asyncThunkCreator },
@@ -15,7 +16,6 @@ const ticketsSlice = createSliceWithThunks({
     isLoaded: false,
     error: null,
     shownCount: 5,
-    shownTickets: [],
   },
 
   selectors: {
@@ -26,7 +26,7 @@ const ticketsSlice = createSliceWithThunks({
     fetchSearchID: create.asyncThunk(
       async (_, { rejectWithValue }) => {
         try {
-          const response = await fetch('https://aviasales-test-api.kata.academy/search')
+          const response = await fetch(`${baseURL}/search`)
 
           if (!response.ok) {
             throw new Error('Не удалось отправить запрос, попробуйте позже или свяжитесь с администратором')
@@ -54,7 +54,6 @@ const ticketsSlice = createSliceWithThunks({
           state.error = null
           state.searchId = action.payload.searchId
         },
-        settled: () => {},
       }
     ),
 
@@ -63,10 +62,10 @@ const ticketsSlice = createSliceWithThunks({
         const { searchId } = getState().tickets
 
         try {
-          const response = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`)
+          const response = await fetch(`${baseURL}/tickets?searchId=${searchId}`)
 
           if (!response.ok) {
-            throw new Error('Не удалось получить часть билетов билетов')
+            throw new Error('Не удалось получить часть билетов')
           }
 
           const data = await response.json()
@@ -92,7 +91,6 @@ const ticketsSlice = createSliceWithThunks({
           state.tickets.push(...action.payload.tickets)
           state.isLoaded = action.payload.stop
         },
-        settled: () => {},
       }
     ),
 
