@@ -2,6 +2,7 @@ import { selectFilters } from '../../store/filterSlice'
 import { selectSorting } from '../../store/sortingSlice'
 import { selectTicketState } from '../../store/ticketsSlice'
 import getFilteredTickets from '../../utils/getFilteredTickets'
+import getSortingTickets from '../../utils/getSortingTickets'
 import Ticket from '../Ticket'
 
 import { useMemo } from 'react'
@@ -12,17 +13,16 @@ function TicketsList({ className }) {
   const sorting = useSelector(selectSorting)
   const { tickets, status, error, shownCount } = useSelector(selectTicketState)
 
-  const shownTickets = useMemo(
-    () => getFilteredTickets(tickets, sorting, filters).slice(0, shownCount),
-    [tickets, sorting, filters, shownCount]
-  )
-  const noFilters = filters.every((filter) => !filter.checked)
+  const sortedTickets = useMemo(() => getSortingTickets(tickets, sorting), [tickets, sorting])
+  const filteredTickets = useMemo(() => getFilteredTickets(sortedTickets, filters), [sortedTickets, filters])
+  const shownTickets = useMemo(() => filteredTickets.slice(0, shownCount), [filteredTickets, shownCount])
+  const noFiltersApplied = useMemo(() => filters.every((filter) => !filter.checked), [filters])
 
   return (
     <div className={className}>
       {status === 'loading' && <h2>Loading...</h2>}
-      {error && <h2>{error}</h2>}
-      {noFilters && <h2>Рейсов, подходящих под заданные фильтры, не найдено</h2>}
+      {status === 'rejected' && error && <h2>{error}</h2>}
+      {noFiltersApplied && <h2>Рейсов, подходящих под заданные фильтры, не найдено</h2>}
 
       {shownTickets.map((ticket) => (
         <Ticket key={`${ticket.price}${ticket.carrier}${ticket.segments[0].date}`} ticket={ticket} />
