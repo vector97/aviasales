@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 function App() {
-  const { searchId, isLoaded, tickets, error } = useSelector(selectTicketState)
+  const { searchId } = useSelector(selectTicketState)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -19,10 +19,10 @@ function App() {
   }, [dispatch])
 
   useEffect(() => {
-    if (searchId && !isLoaded) {
+    if (searchId) {
       dispatch(fetchTickets())
     }
-  }, [dispatch, searchId, isLoaded, tickets, error])
+  }, [dispatch, searchId])
 
   return (
     <div className={s.App}>

@@ -44,46 +44,36 @@ const filterSlice = createSlice({
 
   reducers: (create) => ({
     toggleFilter: create.reducer((state, action) => {
-      if (action.payload.filter === 'SHOW_ALL') {
-        if (!state[0].checked) {
-          return state.map((filter) => ({ ...filter, checked: true }))
-        }
+      const { filter } = action.payload
 
-        return state.map((filter) => ({ ...filter, checked: false }))
+      if (filter === 'SHOW_ALL') {
+        return state.map((f) => ({ ...f, checked: !state[0].checked }))
       }
 
-      if (action.payload.filter !== 'SHOW_ALL') {
+      if (filter !== 'SHOW_ALL') {
         if (state[0].checked) {
-          return state.map((filter) => {
-            if (filter === state[0]) {
-              return {
-                ...filter,
-                checked: false,
-              }
+          return state.map((f) => {
+            if (f === state[0]) {
+              return { ...f, checked: false }
             }
 
-            if (filter.filter === action.payload.filter) {
-              return {
-                ...filter,
-                checked: !filter.checked,
-              }
+            if (f.filter === filter) {
+              return { ...f, checked: !f.checked }
             }
 
-            return filter
+            return f
           })
         }
 
         if (!state[0].checked) {
-          const newState = state.map((filter) =>
-            filter.filter === action.payload.filter ? { ...filter, checked: !filter.checked } : filter
-          )
-          const allChecked = newState.slice(1).filter((f) => f.checked).length === 4
+          const updatedState = state.map((f) => (f.filter === filter ? { ...f, checked: !f.checked } : f))
+          const allChecked = updatedState.slice(1).filter((f) => f.checked).length === 4
 
           if (allChecked) {
-            return newState.map((filter) => (filter === newState[0] ? { ...filter, checked: true } : filter))
+            return updatedState.map((f) => (f === updatedState[0] ? { ...f, checked: true } : f))
           }
 
-          return newState
+          return updatedState
         }
       }
 

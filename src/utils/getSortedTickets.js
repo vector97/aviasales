@@ -1,4 +1,4 @@
-const getSortingTickets = (tickets, sorting) => {
+const getSortedTickets = (tickets, sorting) => {
   switch (sorting) {
     case 'cheapest':
       return tickets.slice().sort((a, b) => a.price - b.price)
@@ -9,4 +9,4 @@ const getSortingTickets = (tickets, sorting) => {
   }
 }
 
-export default getSortingTickets
+export default getSortedTickets

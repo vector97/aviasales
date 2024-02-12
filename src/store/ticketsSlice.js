@@ -1,6 +1,6 @@
-import { asyncThunkCreator, buildCreateSlice } from '@reduxjs/toolkit'
+import { getSearchId, getTickets } from '../services/aviasalesService'
 
-const baseURL = 'https://aviasales-test-api.kata.academy'
+import { asyncThunkCreator, buildCreateSlice } from '@reduxjs/toolkit'
 
 const createSliceWithThunks = buildCreateSlice({
   creators: { asyncThunk: asyncThunkCreator },
@@ -24,21 +24,7 @@ const ticketsSlice = createSliceWithThunks({
 
   reducers: (create) => ({
     fetchSearchID: create.asyncThunk(
-      async (_, { rejectWithValue }) => {
-        try {
-          const response = await fetch(`${baseURL}/search`)
-
-          if (!response.ok) {
-            throw new Error('Не удалось отправить запрос, попробуйте позже или свяжитесь с администратором')
-          }
-
-          const data = await response.json()
-
-          return data
-        } catch (error) {
-          return rejectWithValue(error.message)
-        }
-      },
+      async (_, { rejectWithValue }) => getSearchId(rejectWithValue),
 
       {
         pending: (state) => {
@@ -58,22 +44,17 @@ const ticketsSlice = createSliceWithThunks({
     ),
 
     fetchTickets: create.asyncThunk(
-      async (_, { rejectWithValue, getState }) => {
+      async (_, { rejectWithValue, getState, dispatch }) => {
         const { searchId } = getState().tickets
+        let stop = false
 
-        try {
-          const response = await fetch(`${baseURL}/tickets?searchId=${searchId}`)
-
-          if (!response.ok) {
-            throw new Error('Не удалось получить часть билетов')
+        do {
+          const data = await getTickets(searchId, rejectWithValue)
+          if (data) {
+            dispatch(addTickets(data))
+            stop = data.stop
           }
-
-          const data = await response.json()
-
-          return data
-        } catch (error) {
-          return rejectWithValue(error.message)
-        }
+        } while (!stop)
       },
 
       {
@@ -85,14 +66,17 @@ const ticketsSlice = createSliceWithThunks({
           state.status = 'rejected'
           state.error = action.payload
         },
-        fulfilled: (state, action) => {
+        fulfilled: (state) => {
           state.status = 'resolved'
           state.error = null
-          state.tickets.push(...action.payload.tickets)
-          state.isLoaded = action.payload.stop
         },
       }
     ),
+
+    addTickets: create.reducer((state, action) => {
+      state.tickets.push(...action.payload.tickets)
+      state.isLoaded = action.payload.stop
+    }),
 
     showMore: create.reducer((state) => {
       state.shownCount += 5
@@ -100,7 +84,7 @@ const ticketsSlice = createSliceWithThunks({
   }),
 })
 
-export const { fetchSearchID, fetchTickets, showMore } = ticketsSlice.actions
+export const { fetchSearchID, fetchTickets, addTickets, showMore } = ticketsSlice.actions
 
 export const { selectTicketState, selectAllTickets, selectShownTickets } = ticketsSlice.selectors
 

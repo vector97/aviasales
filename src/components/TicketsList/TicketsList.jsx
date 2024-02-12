@@ -2,7 +2,7 @@ import { selectFilters } from '../../store/filterSlice'
 import { selectSorting } from '../../store/sortingSlice'
 import { selectTicketState } from '../../store/ticketsSlice'
 import getFilteredTickets from '../../utils/getFilteredTickets'
-import getSortingTickets from '../../utils/getSortingTickets'
+import getSortedTickets from '../../utils/getSortedTickets'
 import Ticket from '../Ticket'
 
 import { useMemo } from 'react'
@@ -13,7 +13,7 @@ function TicketsList({ className }) {
   const sorting = useSelector(selectSorting)
   const { tickets, status, error, shownCount } = useSelector(selectTicketState)
 
-  const sortedTickets = useMemo(() => getSortingTickets(tickets, sorting), [tickets, sorting])
+  const sortedTickets = useMemo(() => getSortedTickets(tickets, sorting), [tickets, sorting])
   const filteredTickets = useMemo(() => getFilteredTickets(sortedTickets, filters), [sortedTickets, filters])
   const shownTickets = useMemo(() => filteredTickets.slice(0, shownCount), [filteredTickets, shownCount])
   const noFiltersApplied = useMemo(() => filters.every((filter) => !filter.checked), [filters])
