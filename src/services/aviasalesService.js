@@ -4,7 +4,7 @@ export const getSearchId = async (rejectWithValue) => {
   try {
     const response = await fetch(`${apiBase}/search`)
 
-    if (!response.ok) {
+    if (!response.ok && response.status >= 500) {
       throw new Error('Не удалось отправить запрос, попробуйте позже или свяжитесь с администратором')
     }
 
