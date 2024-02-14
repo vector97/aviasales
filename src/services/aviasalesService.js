@@ -20,7 +20,7 @@ export const getTickets = async (searchId) => {
   try {
     const response = await fetch(`${apiBase}/tickets?searchId=${searchId}`)
 
-    if (!response.ok) {
+    if (!response.ok && response.status >= 500) {
       throw new Error('Не удалось получить часть билетов')
     }
 
