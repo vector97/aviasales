@@ -16,18 +16,29 @@ export const getSearchId = async (rejectWithValue) => {
   }
 }
 
-export const getTickets = async (searchId) => {
+export const getTickets = async (searchId, rejectWithValue) => {
+  let status
+
   try {
     const response = await fetch(`${apiBase}/tickets?searchId=${searchId}`)
+    status = response.status
 
     if (!response.ok && response.status >= 500) {
-      throw new Error('Не удалось получить часть билетов')
+      throw new Error('Часть билетов не загрузилась')
+    }
+
+    if (!response.ok && response.status < 500) {
+      throw new Error('При загрузке билетов произошла ошибка')
     }
 
     const data = await response.json()
 
     return data
   } catch (error) {
-    console.error(error.message)
+    if (status >= 500) {
+      console.error(error.message)
+    } else {
+      return rejectWithValue(error.message)
+    }
   }
 }

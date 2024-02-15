@@ -62,9 +62,9 @@ const ticketsSlice = createSliceWithThunks({
           state.status = 'loading'
           state.error = null
         },
-        rejected: (state, action) => {
+        rejected: (state) => {
           state.status = 'rejected'
-          state.error = action.payload
+          state.error = 'При загрузке билетов произошла ошибка'
         },
         fulfilled: (state) => {
           state.status = 'resolved'
